@@ -83,16 +83,9 @@ function deleteTask(button) {
     const li = button.parentElement.parentElement.parentElement;
     const taskText = li.querySelector('.task-text').textContent;
     
-    // Si la tarea está en la lista de pendientes, muévela a hechas
-    if (li.parentElement.id === 'pending-list') {
-        li.remove(); // Quita de pendientes
-        const now = new Date().toISOString();
-        addTask(taskText, true, now); // Agrega a hechas con fecha
-    } else {
-        // Si está en hechas, elimínala completamente
-        li.remove();
-        removeTask(taskText);
-    }
+    // SOLO eliminar la tarea, NO moverla a hechas
+    li.remove();
+    removeTask(taskText);
 }
 
 // Funciones para localStorage
@@ -111,4 +104,5 @@ function removeTask(text) {
     const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
     const filtered = tasks.filter(t => t.text !== text);
     localStorage.setItem('tasks', JSON.stringify(filtered));
+
 }
